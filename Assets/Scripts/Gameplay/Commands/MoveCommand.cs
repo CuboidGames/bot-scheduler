@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Gameplay.Commands
+namespace BotScheduler.Gameplay.Commands
 {
   public class MoveCommand : BaseCommand
   {
