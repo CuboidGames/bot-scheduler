@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace BotScheduler.Gameplay.Commands
 {
-  public class RotateCommand : BaseCommand
+  public class RotateCommand : BaseGameObjectCommand
   {
 
     protected Vector3 axis;
@@ -16,17 +16,14 @@ namespace BotScheduler.Gameplay.Commands
       this.distance = distance;
     }
 
-    public override IEnumerator Run()
+    public override IEnumerator Run(float duration)
     {
-      var targetRotation = target.transform.rotation * Quaternion.Euler(axis.x * this.distance, axis.y * this.distance, axis.z * this.distance);
+      var initialRotation = target.transform.rotation;
+      var targetRotation = initialRotation * Quaternion.Euler(axis.x * this.distance, axis.y * this.distance, axis.z * this.distance);
 
-      while (Quaternion.Angle(target.transform.rotation, targetRotation) > 0.01)
-      {
-        target.transform.rotation = Quaternion.Lerp(target.transform.rotation, targetRotation, Time.deltaTime * 10);
-        yield return null;
-      }
-
-      target.transform.rotation = targetRotation;
+      yield return RunInterpolated(duration, (float delta) => {
+        target.transform.rotation = Quaternion.Lerp(initialRotation, targetRotation, delta);
+      });
     }
   }
 }

@@ -8,6 +8,8 @@ namespace BotScheduler.Gameplay.Schedule
 {
   public class Scheduler : MonoBehaviour
   {
+    [SerializeField]
+    private float stepDuration = 2f;
     private Schedule currentSchedule;
     private Coroutine currentRoutine;
 
@@ -32,11 +34,9 @@ namespace BotScheduler.Gameplay.Schedule
         StopCoroutine(currentRoutine);
       }
 
-      IEnumerator commandEnumerator = nextCommand.Run();
+      currentRoutine = StartCoroutine(nextCommand.Run(stepDuration));
 
-      currentRoutine = StartCoroutine(commandEnumerator);
-
-      return commandEnumerator;
+      yield return currentRoutine;
     }
   }
 

@@ -11,24 +11,41 @@ namespace BotScheduler.Gameplay.Schedule
     private List<BaseCommand> commands = new List<BaseCommand>();
     private int currentCommandIndex = -1;
 
-    public void Enqueue(BaseCommand command)
+    private int size;
+
+    public Schedule(int size)
     {
-      commands.Add(command);
+      this.size = size;
+
+      for (int i = 0; i < size; i++)
+      {
+        this.commands.Add(new NoopCommand());
+      }
     }
 
-    public void Dequeue(BaseCommand command)
+    public void Enqueue(int index, BaseCommand command)
     {
-      var commandIndex = commands.IndexOf(command);
-
-      if (currentCommandIndex >= commandIndex)
+      if (index > size - 1)
       {
-        currentCommandIndex--;
+        throw new IndexOutOfRangeException();
+      }
+
+      commands.Insert(index, command);
+    }
+
+    public void Dequeue(int index, BaseCommand command)
+    {
+      if (index > size - 1)
+      {
+        throw new IndexOutOfRangeException();
       }
 
       commands.Remove(command);
+      commands.Insert(index, new NoopCommand());
     }
 
-    public void Restart() {
+    public void Restart()
+    {
       currentCommandIndex = -1;
     }
 
@@ -46,7 +63,7 @@ namespace BotScheduler.Gameplay.Schedule
 
     public bool IsLastCommand()
     {
-      return currentCommandIndex == commands.Count - 1;
+      return currentCommandIndex == size - 1;
     }
   }
 }

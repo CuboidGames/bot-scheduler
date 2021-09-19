@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace BotScheduler.Gameplay.Commands
 {
-  public class MoveCommand : BaseCommand
+  public class MoveCommand : BaseGameObjectCommand
   {
 
     protected Vector3 direction;
@@ -16,17 +16,15 @@ namespace BotScheduler.Gameplay.Commands
       this.distance = distance;
     }
 
-    public override IEnumerator Run()
+    public override IEnumerator Run(float duration)
     {
-      var targetPosition = target.transform.position + this.direction * distance;
+      var initialPosition = target.transform.position;
+      var targetPosition = initialPosition + this.direction * distance;
 
-      while (Vector3.Distance(targetPosition, target.transform.position) > 0.01)
+      yield return RunInterpolated(duration, (float delta) =>
       {
-        target.transform.position = Vector3.Lerp(target.transform.position, targetPosition, Time.deltaTime * 10);
-        yield return null;
-      }
-
-      target.transform.position = targetPosition;
+        target.transform.position = Vector3.Lerp(initialPosition, targetPosition, delta);
+      });
     }
   }
 }
