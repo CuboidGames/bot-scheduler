@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Lean.Gui;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using BotScheduler.Utils;
 
 namespace BotScheduler.UI
 {
@@ -11,12 +12,43 @@ namespace BotScheduler.UI
     private LeanDrag drag;
     private Camera mainCamera;
 
+    [SerializeField]
+    private LeanDropArea currentDropArea;
+
+    [SerializeField]
+    private float dropAreaSnapDuration = 0.3f;
+    private Coroutine currentSnapRoutine;
+
     void Start()
     {
       mainCamera = Camera.main;
       drag = GetComponent<LeanDrag>();
 
       drag.OnEnd.AddListener(OnDragEnd);
+    }
+
+    private void SnapInDropArea() {
+      if (currentSnapRoutine != null) {
+        StopCoroutine(currentSnapRoutine);
+      }
+
+      currentSnapRoutine = StartCoroutine(StartSnapRoutine());
+    }
+
+    private IEnumerator StartSnapRoutine() {
+      float initialTime = Time.time;
+
+      Vector3 initialPosition = transform.position;
+
+      while (initialTime + dropAreaSnapDuration > Time.time)
+      {
+        float interpolateStep = (Time.time - initialTime) / dropAreaSnapDuration;
+
+        transform.position = Vector3.Lerp(initialPosition, currentDropArea.transform.position, Timing.EaseInOut(interpolateStep));
+        yield return null;
+      }
+
+      transform.position = currentDropArea.transform.position;
     }
 
     private void OnDragEnd()
@@ -40,8 +72,18 @@ namespace BotScheduler.UI
           continue;
         }
 
-        dropArea.OnDrop(this);
+        if (!dropArea.AcceptsDroppable(this)) {
+          continue;
+        }
+
+        currentDropArea = dropArea;
+        dropArea.OnLeanDrop(this);
         break;
+      }
+
+      // loop did not break, so no suitable drop area was found in raycast
+      if (currentDropArea) {
+        SnapInDropArea();
       }
     }
   }
