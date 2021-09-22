@@ -17,6 +17,10 @@ namespace BotScheduler.UI
 
     [SerializeField]
     private float dropAreaSnapDuration = 0.3f;
+
+    [SerializeField]
+    private LeanDropArea dropOutsideFallback;
+
     private Coroutine currentSnapRoutine;
 
     void Start()
@@ -67,6 +71,8 @@ namespace BotScheduler.UI
 
       eventSystem.RaycastAll(pointerEventData, hits);
 
+      bool dropAreaFound = false;
+
       foreach (RaycastResult hit in hits) {
         if (!hit.gameObject.TryGetComponent<LeanDropArea>(out var dropArea)) {
           continue;
@@ -76,12 +82,19 @@ namespace BotScheduler.UI
           continue;
         }
 
+        dropAreaFound = true;
         currentDropArea = dropArea;
+
         dropArea.OnLeanDrop(this);
         break;
       }
 
       // loop did not break, so no suitable drop area was found in raycast
+      // check if there is a fallback drop area
+      if (!dropAreaFound && dropOutsideFallback) {
+        currentDropArea = dropOutsideFallback;
+      }
+
       if (currentDropArea) {
         SnapInDropArea();
       }
