@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using BotScheduler.Gameplay.Commands;
 using BotScheduler.Gameplay.Schedule;
@@ -8,16 +9,19 @@ namespace BotScheduler.UI
 {
   public class CommandDropArea : LeanDropArea
   {
-    public BaseCommand command;
     public Schedule schedule;
 
     public int index;
 
-    public override void OnLeanDrop(LeanDrop drop)
+    public override void OnLeanDrop(LeanDrop droppable)
     {
-      base.OnLeanDrop(drop);
+      base.OnLeanDrop(droppable);
 
-      schedule.Enqueue(index, command);
+      // TODO: Find a way to resolve this through the method signature
+      if (droppable is CommandDrop)
+      {
+        schedule.Enqueue(index, ((CommandDrop)droppable).command);
+      }
     }
   }
 }

@@ -40,7 +40,6 @@ namespace BotScheduler.UI
             false);
 
         newDropArea.index = i;
-        newDropArea.command = new MoveCommand(player, player.transform.forward, 0.25f);
         newDropArea.schedule = schedule;
 
         newDropArea.transform.localPosition = new Vector3(
