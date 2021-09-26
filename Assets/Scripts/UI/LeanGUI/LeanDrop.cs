@@ -7,6 +7,7 @@ using BotScheduler.Utils;
 
 namespace BotScheduler.UI
 {
+  [RequireComponent(typeof(LeanDrag))]
   public class LeanDrop : MonoBehaviour
   {
     private LeanDrag drag;

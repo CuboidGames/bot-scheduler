@@ -15,7 +15,7 @@ namespace BotScheduler.UI
 
   public class LeanDropArea : MonoBehaviour
   {
-    private UnityEvent<LeanDrop> OnDrop
+    public UnityEvent<LeanDrop> OnDrop
     {
       get
       {
@@ -37,7 +37,7 @@ namespace BotScheduler.UI
     [SerializeField]
     private List<string> validTags = new List<string>();
 
-    public void OnLeanDrop(LeanDrop droppable)
+    virtual public void OnLeanDrop(LeanDrop droppable)
     {
       OnDrop.Invoke(droppable);
     }

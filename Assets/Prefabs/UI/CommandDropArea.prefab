@@ -10,9 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3332606029479123333}
   - component: {fileID: 3332606029478792027}
-  - component: {fileID: 5994745176657811030}
   - component: {fileID: 1878516375317804739}
-  - component: {fileID: 8204267511034882185}
+  - component: {fileID: 1415952615794708204}
   m_Layer: 5
   m_Name: CommandDropArea
   m_TagString: Untagged
@@ -47,23 +46,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3332606029458916133}
   m_CullTransparentMesh: 0
---- !u!114 &5994745176657811030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3332606029458916133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627cc1a5e35394d4980cb558c131fce2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onDrop:
-    m_PersistentCalls:
-      m_Calls: []
-  validateTags: 0
-  validTags: []
 --- !u!114 &1878516375317804739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,7 +75,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8204267511034882185
+--- !u!114 &1415952615794708204
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,12 +84,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3332606029458916133}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627cc1a5e35394d4980cb558c131fce2, type: 3}
+  m_Script: {fileID: 11500000, guid: e7cc8f0666be6c94d81dde1979664a61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   onDrop:
     m_PersistentCalls:
       m_Calls: []
-  validateTags: 1
-  validTags:
-  - ScheduleCommand
+  validateTags: 0
+  validTags: []
+  index: 0
