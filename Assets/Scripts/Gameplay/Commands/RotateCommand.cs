@@ -10,7 +10,7 @@ namespace BotScheduler.Gameplay.Commands
     protected Vector3 axis;
     protected float distance;
 
-    public RotateCommand(GameObject target, Vector3 axis, float distance) : base(target)
+    public RotateCommand(Vector3 axis, float distance) : base()
     {
       this.axis = axis / Mathf.PI * 180;
       this.distance = distance;

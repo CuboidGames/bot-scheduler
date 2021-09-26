@@ -7,11 +7,12 @@ namespace BotScheduler.Gameplay.Commands
   public abstract class BaseGameObjectCommand : BaseCommand
   {
 
-    protected GameObject target;
+    public GameObject target;
 
-    public BaseGameObjectCommand(GameObject target)
-    {
+    public void RunFor(float duration, GameObject target) {
       this.target = target;
+
+      Run(duration);
     }
   }
 }

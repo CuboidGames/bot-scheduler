@@ -10,7 +10,7 @@ namespace BotScheduler.Gameplay.Commands
     protected Vector3 direction;
     protected float distance;
 
-    public MoveCommand(GameObject target, Vector3 direction, float distance) : base(target)
+    public MoveCommand(Vector3 direction, float distance) : base()
     {
       this.direction = direction;
       this.distance = distance;

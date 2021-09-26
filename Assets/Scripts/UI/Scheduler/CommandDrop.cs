@@ -7,39 +7,40 @@ using UnityEngine;
 
 namespace BotScheduler.UI
 {
-  enum CommandType {
-    Noop,
-    RotateCcw,
-    RotateCw,
-    MoveForward
-  }
   public class CommandDrop : LeanDrop
   {
     private BaseCommand _command;
-    public BaseCommand command {
-      get {
+    public BaseCommand command
+    {
+      get
+      {
         return _command;
       }
     }
 
-    [SerializeField]
-    private CommandType commandType = CommandType.Noop;
+    private CommandType _commandType = CommandType.Noop;
 
-    [SerializeField]
-    private GameObject player;
+    public CommandType commandType {
+      get {
+        return _commandType;
+      }
+      set {
+        _commandType = value;
+      }
+    }
 
-    void Start() {
+    public GameObject player;
+
+    private CommandDraggableIcon icon;
+
+    void Start()
+    {
       Init();
 
-      if (commandType == CommandType.MoveForward) {
-        _command = new MoveCommand(player, player.transform.forward, 0.25f);
-      } else if (commandType == CommandType.RotateCcw) {
-        _command = new RotateCommand(player, player.transform.up, -Mathf.PI / 2);
-      } else if (commandType == CommandType.RotateCw) {
-        _command = new RotateCommand(player, player.transform.up, Mathf.PI / 2);
-      } else {
-        _command = new NoopCommand();
-      }
+      icon = GetComponentInChildren<CommandDraggableIcon>();
+
+      icon.SetCommandType(commandType);
+      _command = CommandFactory.GetCommand(commandType);
     }
   }
 

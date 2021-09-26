@@ -9,11 +9,7 @@ namespace BotScheduler.UI
 {
   public class ScheduleCreator : MonoBehaviour
   {
-    private Scheduler scheduler;
-    private Schedule schedule;
-
-    [SerializeField]
-    private GameObject player;
+    public GameObject player;
 
     [SerializeField]
     private CommandDropArea dropAreaPrefab;
@@ -21,17 +17,10 @@ namespace BotScheduler.UI
     [SerializeField]
     private float dropAreaWidth = 120;
 
-    [SerializeField]
-    private int commandsCount = 4;
-
-    private void Start()
-    {
-      scheduler = GetComponent<Scheduler>();
-      schedule = new Schedule(commandsCount);
-
-      for (int i = 0; i < commandsCount; i++)
+    public void CreateScheduleSlots(Schedule schedule) {
+      for (int i = 0; i < schedule.size; i++)
       {
-        float offset = (i - (commandsCount / 2.0f) + 0.5f);
+        float offset = (i - (schedule.size / 2.0f) + 0.5f);
         float targetX = offset * dropAreaWidth;
 
         var newDropArea = Instantiate<CommandDropArea>(
@@ -49,26 +38,6 @@ namespace BotScheduler.UI
         );
       }
     }
-
-    public void RunSchedule()
-    {
-      StartCoroutine(scheduler.RunSchedule(schedule));
-    }
   }
 
-  [CustomEditor(typeof(ScheduleCreator))]
-  public class ObjectBuilderEditor : Editor
-  {
-    public override void OnInspectorGUI()
-    {
-      DrawDefaultInspector();
-
-      var myScript = (ScheduleCreator)target;
-
-      if (GUILayout.Button("Run schedule"))
-      {
-        myScript.RunSchedule();
-      }
-    }
-  }
 }
