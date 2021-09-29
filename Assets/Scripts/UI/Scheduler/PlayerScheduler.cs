@@ -55,6 +55,8 @@ namespace BotScheduler.UI
       commandsContainer = GetComponentInChildren<CommandsContainer>();
       scheduleCreator = GetComponentInChildren<ScheduleCreator>();
 
+      scheduleCreator.player = player;
+
       commandsContainer.CreateCommandDraggables(availableLevelCommands.levelCommands);
       scheduleCreator.CreateScheduleSlots(schedule);
     }
