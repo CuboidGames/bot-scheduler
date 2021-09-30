@@ -9,8 +9,6 @@ namespace BotScheduler.UI
 {
   public class ScheduleCreator : MonoBehaviour
   {
-    public GameObject player;
-
     [SerializeField]
     private CommandDropArea dropAreaPrefab;
 
@@ -39,5 +37,4 @@ namespace BotScheduler.UI
       }
     }
   }
-
 }
