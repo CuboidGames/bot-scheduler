@@ -9,7 +9,7 @@ namespace BotScheduler.Gameplay.Schedule
   public class Scheduler : MonoBehaviour
   {
     [SerializeField]
-    private float stepDuration = 2f;
+    private float stepDuration = 1f;
     private Schedule currentSchedule;
     private Coroutine currentRoutine;
 

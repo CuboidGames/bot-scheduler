@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5adbe7d64198a5b4dab8977f402a8b8b, type: 3}
   m_Name: MoveTestLevelCommand
   m_EditorClassIdentifier: 
-  commandType: 0
-  count: 0
+  commandType: 3
+  count: 100

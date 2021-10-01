@@ -10,14 +10,15 @@ namespace BotScheduler.Gameplay.Schedule
 {
   public class PlayerScheduler : MonoBehaviour
   {
-    // command creation
-    private int commandsCount = 4;
-
     private Schedule schedule;
     private Scheduler scheduler;
 
-    void Start()
-    {
+    void Start () {
+      scheduler = GetComponent<Scheduler>();
+    }
+
+    public void SetSchedule(Schedule newSchedule) {
+      schedule = newSchedule;
     }
 
     public void RunSchedule()

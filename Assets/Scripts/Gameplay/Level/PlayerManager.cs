@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using BotScheduler.Gameplay.Schedule;
 using BotScheduler.UI;
+using UnityEditor;
 using UnityEngine;
 
 namespace BotScheduler.Gameplay.Level
@@ -12,7 +13,6 @@ namespace BotScheduler.Gameplay.Level
   public class PlayerLevelConfigurator {
     public GameObject player;
     public AvailableLevelCommands commands;
-
     public Schedule.Schedule schedule;
   }
 
@@ -65,8 +65,14 @@ namespace BotScheduler.Gameplay.Level
 
       foreach (var playerConfigurator in playerConfigurations)
       {
-        playerConfigurator.schedule = new Schedule.Schedule(5);
+        // Init scheduler objects
+        var playerScheduler = playerConfigurator.player.GetComponent<PlayerScheduler>();
 
+        playerConfigurator.schedule = new Schedule.Schedule(5);
+        playerScheduler.SetSchedule(playerConfigurator.schedule);
+
+
+        // Init scheduler GUI
         var scheduler = Instantiate(schedulerGUIPrefab, canvasGui.transform);
         var playerSchedulerGUI = scheduler.GetComponent<PlayerSchedulerGUI>();
 
@@ -74,6 +80,7 @@ namespace BotScheduler.Gameplay.Level
         playerSchedulerGUI.CreateScheduleGUI(
           playerConfigurator.schedule,
           playerConfigurator.commands.levelCommands);
+        playerSchedulerGUI.gameObject.SetActive(false);
 
         schedulers.Add(playerSchedulerGUI);
       }
@@ -88,11 +95,14 @@ namespace BotScheduler.Gameplay.Level
 
       foreach (var scheduler in schedulers)
       {
-        if (scheduler.gameObject == player)
+        if (scheduler.player == player)
         {
           scheduler.gameObject.SetActive(true);
           activeScheduler = scheduler;
 
+#if UNITY_EDITOR
+          Selection.activeGameObject = player;
+#endif
           break;
         }
       }

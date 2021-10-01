@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a26af0c274ceae4997e9f069830b55d, type: 3}
   m_Name: TestLevelCommands
   m_EditorClassIdentifier: 
-  levelCommands: []
+  levelCommands:
+  - {fileID: 11400000, guid: a5df9bf0e5a0b73469f17ee05c97c7c3, type: 2}
+  - {fileID: 11400000, guid: a9807a2e7dc48c344ac5d663d00050e7, type: 2}
