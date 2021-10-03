@@ -8,5 +8,6 @@ namespace BotScheduler.Gameplay.Level
 {
   public class LevelManager : MonoBehaviour
   {
+      public LevelConfiguration levelConfiguration;
   }
 }

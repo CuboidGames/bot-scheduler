@@ -9,30 +9,42 @@ using UnityEngine;
 namespace BotScheduler.Gameplay.Level
 {
 
-  [Serializable]
-  public class PlayerLevelConfigurator {
-    public GameObject player;
-    public AvailableLevelCommands commands;
-    public Schedule.Schedule schedule;
-  }
 
   public class PlayerManager : MonoBehaviour
   {
     [SerializeField]
-    private List<PlayerLevelConfigurator> playerConfigurations = new List<PlayerLevelConfigurator>();
+    private LevelManager levelManager;
+
 
     [SerializeField]
-    private GameObject schedulerGUIPrefab;
+    private List<GameObject> players;
+
+    private List<Schedule.Schedule> schedules = new List<Schedule.Schedule>();
+
+    [SerializeField]
+    private GameObject scheduleGUIPrefab;
+
+    [SerializeField]
+    private GameObject commandsGUIPrefab;
 
     [SerializeField]
     private Canvas canvasGui;
 
-    private PlayerSchedulerGUI activeScheduler;
-    private List<PlayerSchedulerGUI> schedulers = new List<PlayerSchedulerGUI>();
+    private ScheduleCreatorGUI activeScheduler;
+    private CommandsContainerGUI commandsGUI;
+    private List<ScheduleCreatorGUI> schedulerGUIs = new List<ScheduleCreatorGUI>();
 
     void Start()
     {
+      if (players.Count == 0)
+      {
+        Debug.LogWarning("No players injected in LevelManager!");
+        return;
+      }
+
       InitPlayerSchedulers();
+      InitSchedulersGUI();
+      InitCommandsGUI();
     }
 
     void Update()
@@ -43,46 +55,49 @@ namespace BotScheduler.Gameplay.Level
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         // TODO: Use a HashSet to improve lookup times down to O(1)
-        if (Physics.Raycast(ray, out var hit))
+        if (Physics.Raycast(ray, out var hit) && players.Contains(hit.transform.gameObject))
         {
-          foreach (var playerConfiguration in playerConfigurations) {
-            if (playerConfiguration.player == hit.transform.gameObject) {
-              ActivatePlayerScheduler(playerConfiguration.player);
-              break;
-            }
-          }
+          ActivatePlayerScheduler(hit.transform.gameObject);
         }
       }
     }
 
     void InitPlayerSchedulers()
     {
-      if (playerConfigurations.Count == 0)
-      {
-        Debug.LogWarning("No player configurations injected in LevelManager!");
-        return;
-      }
-
-      foreach (var playerConfigurator in playerConfigurations)
+      foreach (var player in players)
       {
         // Init scheduler objects
-        var playerScheduler = playerConfigurator.player.GetComponent<PlayerScheduler>();
+        var schedule = new Schedule.Schedule(levelManager.levelConfiguration.queueSize);
+        schedules.Add(schedule);
 
-        playerConfigurator.schedule = new Schedule.Schedule(5);
-        playerScheduler.SetSchedule(playerConfigurator.schedule);
+        var playerScheduler = player.GetComponent<PlayerScheduler>();
+        playerScheduler.SetSchedule(schedule);
+      }
+    }
 
+    public void InitCommandsGUI() {
+        // Init scheduler GUI
+        var commands = Instantiate(commandsGUIPrefab, canvasGui.transform);
+        var commandsGUI = commands.GetComponent<CommandsContainerGUI>();
+
+        commandsGUI.CreateCommandDraggables(levelManager.levelConfiguration.commands);
+    }
+
+    public void InitSchedulersGUI() {
+      for (int i = 0; i < players.Count; i++)
+      {
+        var player = players[i];
+        var schedule = schedules[i];
 
         // Init scheduler GUI
-        var scheduler = Instantiate(schedulerGUIPrefab, canvasGui.transform);
-        var playerSchedulerGUI = scheduler.GetComponent<PlayerSchedulerGUI>();
+        var scheduler = Instantiate(scheduleGUIPrefab, canvasGui.transform);
+        var playerScheduleGUI = scheduler.GetComponent<ScheduleCreatorGUI>();
 
-        playerSchedulerGUI.player = playerConfigurator.player;
-        playerSchedulerGUI.CreateScheduleGUI(
-          playerConfigurator.schedule,
-          playerConfigurator.commands.levelCommands);
-        playerSchedulerGUI.gameObject.SetActive(false);
+        playerScheduleGUI.player = player;
+        playerScheduleGUI.CreateScheduleSlots(schedule);
+        playerScheduleGUI.gameObject.SetActive(false);
 
-        schedulers.Add(playerSchedulerGUI);
+        schedulerGUIs.Add(playerScheduleGUI);
       }
     }
 
@@ -93,7 +108,7 @@ namespace BotScheduler.Gameplay.Level
         activeScheduler.gameObject.SetActive(false);
       }
 
-      foreach (var scheduler in schedulers)
+      foreach (var scheduler in schedulerGUIs)
       {
         if (scheduler.player == player)
         {

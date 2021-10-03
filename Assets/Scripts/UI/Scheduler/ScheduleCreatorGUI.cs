@@ -7,13 +7,15 @@ using UnityEngine;
 
 namespace BotScheduler.UI
 {
-  public class ScheduleCreator : MonoBehaviour
+  public class ScheduleCreatorGUI : MonoBehaviour
   {
     [SerializeField]
     private CommandDropArea dropAreaPrefab;
 
     [SerializeField]
     private float dropAreaWidth = 120;
+
+    public GameObject player;
 
     public void CreateScheduleSlots(Schedule schedule) {
       for (int i = 0; i < schedule.size; i++)
