@@ -19,6 +19,9 @@ namespace BotScheduler.UI
     private float dropAreaSnapDuration = 0.3f;
 
     [SerializeField]
+    private bool changeParent = false;
+
+    [SerializeField]
     private LeanDropArea dropOutsideFallback;
 
     private Coroutine currentSnapRoutine;
@@ -36,6 +39,10 @@ namespace BotScheduler.UI
     }
 
     private void SnapInDropArea() {
+      if (changeParent) {
+        transform.SetParent(currentDropArea.transform);
+      }
+
       if (currentSnapRoutine != null) {
         StopCoroutine(currentSnapRoutine);
       }
