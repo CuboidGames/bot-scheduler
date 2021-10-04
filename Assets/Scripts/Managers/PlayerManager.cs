@@ -6,20 +6,14 @@ using BotScheduler.UI;
 using UnityEditor;
 using UnityEngine;
 
-namespace BotScheduler.Gameplay.Level
+namespace BotScheduler.Managers
 {
 
 
-  public class PlayerManager : MonoBehaviour
+  public class PlayerManager : BaseManager
   {
-    [SerializeField]
-    private LevelManager levelManager;
 
-
-    [SerializeField]
-    private List<GameObject> players;
-
-    private List<Schedule.Schedule> schedules = new List<Schedule.Schedule>();
+    private List<Schedule> schedules = new List<Schedule>();
 
     [SerializeField]
     private GameObject scheduleGUIPrefab;
@@ -28,19 +22,15 @@ namespace BotScheduler.Gameplay.Level
     private GameObject commandsGUIPrefab;
 
     [SerializeField]
-    private Canvas canvasGui;
+    private Canvas canvasGUI;
 
     private ScheduleCreatorGUI activeScheduler;
     private CommandsContainerGUI commandsGUI;
     private List<ScheduleCreatorGUI> schedulerGUIs = new List<ScheduleCreatorGUI>();
 
-    void Start()
+    new void Start()
     {
-      if (players.Count == 0)
-      {
-        Debug.LogWarning("No players injected in LevelManager!");
-        return;
-      }
+      base.Start();
 
       InitPlayerSchedulers();
       InitSchedulersGUI();
@@ -67,7 +57,7 @@ namespace BotScheduler.Gameplay.Level
       foreach (var player in players)
       {
         // Init scheduler objects
-        var schedule = new Schedule.Schedule(levelManager.levelConfiguration.queueSize);
+        var schedule = new Schedule(levelConfiguration.queueSize);
         schedules.Add(schedule);
 
         var playerScheduler = player.GetComponent<PlayerScheduler>();
@@ -75,22 +65,36 @@ namespace BotScheduler.Gameplay.Level
       }
     }
 
-    public void InitCommandsGUI() {
-        // Init scheduler GUI
-        var commands = Instantiate(commandsGUIPrefab, canvasGui.transform);
-        var commandsGUI = commands.GetComponent<CommandsContainerGUI>();
+    void InitCommandsGUI()
+    {
+      if (!commandsGUIPrefab || !canvasGUI)
+      {
+        Debug.LogWarning("Couldn't initialize commands GUI due to unset commandsGUIPrefab or canvasGUI");
+        return;
+      }
 
-        commandsGUI.CreateCommandDraggables(levelManager.levelConfiguration.commands);
+      // Init scheduler GUI
+      var commands = Instantiate(commandsGUIPrefab, canvasGUI.transform);
+      var commandsGUI = commands.GetComponent<CommandsContainerGUI>();
+
+      commandsGUI.CreateCommandDraggables(levelConfiguration.commands);
     }
 
-    public void InitSchedulersGUI() {
+    void InitSchedulersGUI()
+    {
+      if (!scheduleGUIPrefab || !canvasGUI)
+      {
+        Debug.LogWarning("Couldn't initialize schedulers GUI due to unset schedulerGUIPrefab or canvasGUI");
+        return;
+      }
+
       for (int i = 0; i < players.Count; i++)
       {
         var player = players[i];
         var schedule = schedules[i];
 
         // Init scheduler GUI
-        var scheduler = Instantiate(scheduleGUIPrefab, canvasGui.transform);
+        var scheduler = Instantiate(scheduleGUIPrefab, canvasGUI.transform);
         var playerScheduleGUI = scheduler.GetComponent<ScheduleCreatorGUI>();
 
         playerScheduleGUI.player = player;

@@ -4,10 +4,9 @@ using BotScheduler.Gameplay.Schedule;
 using BotScheduler.UI;
 using UnityEngine;
 
-namespace BotScheduler.Gameplay.Level
+namespace BotScheduler.Managers
 {
-  public class LevelManager : MonoBehaviour
+  public class LevelManager : BaseManager
   {
-      public LevelConfiguration levelConfiguration;
   }
 }
