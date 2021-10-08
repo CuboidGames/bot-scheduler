@@ -17,7 +17,8 @@ namespace BotScheduler.UI
 
     public GameObject player;
 
-    public void CreateScheduleSlots(Schedule schedule) {
+    public void CreateScheduleSlots(Schedule schedule)
+    {
       for (int i = 0; i < schedule.size; i++)
       {
         float offset = (i - (schedule.size / 2.0f) + 0.5f);

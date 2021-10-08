@@ -15,10 +15,14 @@ namespace BotScheduler.Actors {
         private PlayerManager playerManager;
         private LevelManager levelManager;
 
-        void Start() {
+        private void Awake()
+        {
             playerManager = GetComponent<PlayerManager>();
             levelManager = GetComponent<LevelManager>();
+        }
 
+        private void Start()
+        {
             playerManager.levelConfiguration = levelConfiguration;
             levelManager.levelConfiguration = levelConfiguration;
         }

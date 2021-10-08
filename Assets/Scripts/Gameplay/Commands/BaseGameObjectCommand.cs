@@ -9,7 +9,8 @@ namespace BotScheduler.Gameplay.Commands
 
     public GameObject target;
 
-    public void RunFor(float duration, GameObject target) {
+    public void RunFor(float duration, GameObject target)
+    {
       this.target = target;
 
       Run(duration);

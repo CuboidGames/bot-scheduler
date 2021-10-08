@@ -10,6 +10,8 @@ namespace BotScheduler.UI
   public class LeanDrop : MonoBehaviour
   {
     private LeanDrag drag;
+
+    [SerializeField]
     private Camera mainCamera;
 
     [SerializeField]
@@ -26,19 +28,19 @@ namespace BotScheduler.UI
 
     private Coroutine currentSnapRoutine;
 
-    void Start()
+    protected void Awake()
     {
-      Init();
+      mainCamera = mainCamera ?? Camera.main;
+      drag = GetComponent<LeanDrag>();
     }
 
-    protected void Init() {
-      mainCamera = Camera.main;
-      drag = GetComponent<LeanDrag>();
-
+    protected void Start()
+    {
       drag.OnEnd.AddListener(OnDragEnd);
     }
 
-    private void SnapInDropArea() {
+    private void SnapInDropArea()
+    {
       if (changeParent) {
         transform.SetParent(currentDropArea.transform);
       }
@@ -47,10 +49,11 @@ namespace BotScheduler.UI
         StopCoroutine(currentSnapRoutine);
       }
 
-      currentSnapRoutine = StartCoroutine(StartSnapRoutine());
+      currentSnapRoutine = StartCoroutine(SnapInDropAreaCoroutine());
     }
 
-    private IEnumerator StartSnapRoutine() {
+    private IEnumerator SnapInDropAreaCoroutine()
+    {
       float initialTime = Time.time;
 
       Vector3 initialPosition = transform.position;

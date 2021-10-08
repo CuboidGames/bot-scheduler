@@ -7,7 +7,8 @@ public class AvailableLevelCommand : ScriptableObject
     public CommandType commandType;
     public int count;
 
-    public BaseCommand GetCommand() {
+    public BaseCommand GetCommand()
+    {
         return CommandFactory.GetCommand(commandType);
     }
 }

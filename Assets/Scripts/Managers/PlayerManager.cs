@@ -28,7 +28,7 @@ namespace BotScheduler.Managers
     private CommandsContainerGUI commandsGUI;
     private List<ScheduleCreatorGUI> schedulerGUIs = new List<ScheduleCreatorGUI>();
 
-    new void Start()
+    private new void Start()
     {
       base.Start();
 
@@ -37,7 +37,7 @@ namespace BotScheduler.Managers
       InitCommandsGUI();
     }
 
-    void Update()
+    private void Update()
     {
 
       if (Input.GetMouseButtonDown(0))

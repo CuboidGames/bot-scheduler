@@ -33,11 +33,16 @@ namespace BotScheduler.UI
 
     private CommandDraggableIcon icon;
 
-    void Start()
+    private new void Awake()
     {
-      Init();
+      base.Awake();
 
       icon = GetComponentInChildren<CommandDraggableIcon>();
+    }
+
+    private new void Start()
+    {
+      base.Start();
 
       icon.SetCommandType(commandType);
       _command = CommandFactory.GetCommand(commandType);

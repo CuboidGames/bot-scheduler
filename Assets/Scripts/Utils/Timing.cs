@@ -1,4 +1,3 @@
-
 namespace BotScheduler.Utils
 {
   public class Timing

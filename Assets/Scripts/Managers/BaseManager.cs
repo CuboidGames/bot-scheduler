@@ -15,7 +15,8 @@ namespace BotScheduler.Managers
 
     protected List<GameObject> players;
 
-    protected void Start() {
+    protected void Start()
+    {
       players = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
     }
   }

@@ -13,11 +13,13 @@ namespace BotScheduler.Gameplay.Schedule
     private Schedule schedule;
     private Scheduler scheduler;
 
-    void Start () {
+    private void Awake ()
+    {
       scheduler = GetComponent<Scheduler>();
     }
 
-    public void SetSchedule(Schedule newSchedule) {
+    public void SetSchedule(Schedule newSchedule)
+    {
       schedule = newSchedule;
     }
 

@@ -42,7 +42,8 @@ namespace BotScheduler.UI
       OnDrop.Invoke(droppable);
     }
 
-    public bool AcceptsDroppable(LeanDrop droppable) {
+    public bool AcceptsDroppable(LeanDrop droppable)
+    {
       if (!validateTags) {
         return true;
       }
