@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BotScheduler.Utils;
+using UnityEngine.UI;
 
 namespace BotScheduler.CameraControl
 {
@@ -68,6 +70,11 @@ namespace BotScheduler.CameraControl
       {
         if (!isPanning)
         {
+          if (GUIUtils.IsGUIObjectAtPosition<Image>(Input.mousePosition))
+          {
+            return;
+          }
+
           isPanning = true;
           base.OnPanStart();
         }

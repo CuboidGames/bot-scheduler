@@ -87,6 +87,13 @@
         "com.unity.modules.imgui": "1.0.0"
       }
     },
+    "com.zigurous.importer.cc0textures": {
+      "version": "https://github.com/zigurous/unity-cc0textures-importer.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "4dce5d4151f9d6bb56a195e8a4e9dc7d7aa13fa2"
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,

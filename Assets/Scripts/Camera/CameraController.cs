@@ -10,6 +10,9 @@ namespace BotScheduler.CameraControl
     [SerializeField]
     private Transform transformationPivot;
 
+    [SerializeField]
+    private Bounds cameraBounds;
+
     private void Awake()
     {
       PanRotateCameraController cameraController;
@@ -21,6 +24,13 @@ namespace BotScheduler.CameraControl
 #endif
 
       cameraController.transformationPivot = transformationPivot;
+      cameraController.cameraBounds = cameraBounds;
+    }
+
+    public void OnDrawGizmos()
+    {
+      Gizmos.color = new Color(0.0f, 1.0f, 0.0f, 0.5f);
+      Gizmos.DrawWireCube(cameraBounds.center, cameraBounds.size);
     }
   }
 }

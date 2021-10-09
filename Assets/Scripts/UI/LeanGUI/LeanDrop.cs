@@ -71,41 +71,17 @@ namespace BotScheduler.UI
 
     private void OnDragEnd()
     {
-      var eventSystem = EventSystem.current;
 
-      if (eventSystem == null)
-      {
-        return;
-      }
+      var dropArea = GUIUtils.GetGUIObjectAtPosition<LeanDropArea>(Input.mousePosition);
 
-      var pointerEventData = new PointerEventData(eventSystem);
-      List<RaycastResult> hits = new List<RaycastResult>();
-
-      pointerEventData.position = Input.mousePosition;
-
-      eventSystem.RaycastAll(pointerEventData, hits);
-
-      bool dropAreaFound = false;
-
-      foreach (RaycastResult hit in hits) {
-        if (!hit.gameObject.TryGetComponent<LeanDropArea>(out var dropArea)) {
-          continue;
-        }
-
-        if (!dropArea.AcceptsDroppable(this)) {
-          continue;
-        }
-
-        dropAreaFound = true;
+      if (dropArea) {
         currentDropArea = dropArea;
-
         dropArea.OnLeanDrop(this);
-        break;
       }
 
-      // loop did not break, so no suitable drop area was found in raycast
+      // no suitable drop area was found in raycast
       // check if there is a fallback drop area
-      if (!dropAreaFound && dropOutsideFallback) {
+      if (!dropArea && dropOutsideFallback) {
         currentDropArea = dropOutsideFallback;
       }
 

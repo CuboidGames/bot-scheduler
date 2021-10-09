@@ -10,6 +10,8 @@ namespace BotScheduler.CameraControl
   {
     public Transform transformationPivot;
 
+    public Bounds cameraBounds;
+
     protected Camera _camera { get; private set; }
 
     private Vector3 initialPanPosition = Vector3.zero;
@@ -29,7 +31,10 @@ namespace BotScheduler.CameraControl
       var xComponent = ProjectVector(_camera.transform.right, offset.x);
       var yComponent = ProjectVector(_camera.transform.forward, offset.y);
 
-      transformationPivot.position = initialPanPosition + xComponent + yComponent;
+      var targetPosition = initialPanPosition + xComponent + yComponent;
+      var boundedPosition = GetBoundedPosition(targetPosition);
+
+      transformationPivot.position = boundedPosition;
     }
     protected void OnPanEnd()
     {
@@ -48,6 +53,15 @@ namespace BotScheduler.CameraControl
     {
       initialRotation = 0;
     }
+
+    private Vector3 GetBoundedPosition(Vector3 position)
+    {
+      var boundedX = Mathf.Clamp(position.x, cameraBounds.center.x - cameraBounds.extents.x, cameraBounds.center.x + cameraBounds.extents.x);
+      var boundedZ = Mathf.Clamp(position.z, cameraBounds.center.z - cameraBounds.extents.z, cameraBounds.center.z + cameraBounds.extents.z);
+
+      return new Vector3(boundedX, 0, boundedZ);
+    }
+
 
     protected Vector3 ProjectVector(Vector3 direction, float offset)
     {
