@@ -4,15 +4,13 @@ using Lean.Gui;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using BotScheduler.Utils;
+using BotScheduler.Managers;
 
 namespace BotScheduler.UI
 {
   public class LeanDrop : MonoBehaviour
   {
     private LeanDrag drag;
-
-    [SerializeField]
-    private Camera mainCamera;
 
     [SerializeField]
     private LeanDropArea currentDropArea;
@@ -30,7 +28,6 @@ namespace BotScheduler.UI
 
     protected void Awake()
     {
-      mainCamera = mainCamera ?? Camera.main;
       drag = GetComponent<LeanDrag>();
     }
 
@@ -71,7 +68,6 @@ namespace BotScheduler.UI
 
     private void OnDragEnd()
     {
-
       var dropArea = GUIUtils.GetGUIObjectAtPosition<LeanDropArea>(Input.mousePosition);
 
       if (dropArea) {

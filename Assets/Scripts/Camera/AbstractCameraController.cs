@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace BotScheduler.CameraControl
 {
-  public class CameraController : MonoBehaviour
+  public class AbstractCameraController : MonoBehaviour
   {
     [SerializeField]
     private Transform transformationPivot;

@@ -1,124 +1,47 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using BotScheduler.Utils;
-using UnityEngine.UI;
 
 namespace BotScheduler.CameraControl
 {
   public class TouchCameraController : PanRotateCameraController
   {
-    private bool _isPanning = false;
-    public bool isPanning
-    {
-      get
-      {
-        return _isPanning;
-      }
-      set
-      {
-        if (!_isPanning && value)
-        {
-          initialPanInputPosition = Input.mousePosition;
-        }
-
-        _isPanning = value;
-      }
-    }
     private Vector2 initialPanInputPosition = Vector2.zero;
-
-    private bool _isRotating = false;
-    public bool isRotating
-    {
-      get
-      {
-        return _isRotating;
-      }
-      set
-      {
-        if (!_isRotating && value)
-        {
-          initialRotateTouch1Position = Input.touches[0].position;
-          initialRotateTouch2Position = Input.touches[1].position;
-
-        }
-
-        _isRotating = value;
-      }
-    }
-
     private Vector2 initialRotateTouch1Position = Vector2.zero;
     private Vector2 initialRotateTouch2Position = Vector2.zero;
 
-
-    private void Update()
+    protected override void SetPanning(bool value)
     {
-      HandleMouseInput();
-    }
-
-    private void HandleMouseInput()
-    {
-      HandleRotation();
-      HandlePan();
-    }
-    private void HandlePan()
-    {
-      var isPanningInput = Input.touches.Length == 1;
-
-      if (isPanningInput)
+      if (!isPanning && value)
       {
-        if (!isPanning)
-        {
-          if (GUIUtils.IsGUIObjectAtPosition<Image>(Input.mousePosition))
-          {
-            return;
-          }
-
-          isPanning = true;
-          base.OnPanStart();
-        }
-
-        var scaledPan = GetScaledInputPan();
-        base.OnPan(scaledPan);
-
-        return;
+        initialPanInputPosition = Input.mousePosition;
       }
 
-      if (isPanning)
-      {
-        isPanning = false;
-        base.OnPanEnd();
-      }
+      isPanning = value;
     }
 
-    private void HandleRotation()
+    protected override bool IsPanningInput()
     {
-      var isRotationInput = Input.touches.Length >= 2;
-
-      if (isRotationInput)
-      {
-        if (!isRotating)
-        {
-          isRotating = true;
-          base.OnRotateStart();
-        }
-
-        var scaledRotation = GetScaledInputRotation();
-
-        base.OnRotate(scaledRotation);
-
-        return;
-      }
-
-      if (isRotating)
-      {
-        isRotating = false;
-        base.OnRotateEnd();
-      }
+      return Input.touches.Length == 1;
     }
 
-    private Vector2 GetScaledInputPan()
+    protected override bool IsRotatingInput()
+    {
+      return Input.touches.Length >= 2;
+    }
+
+    protected override void SetRotating(bool value)
+    {
+      if (!isRotating && value)
+      {
+        initialRotateTouch1Position = Input.touches[0].position;
+        initialRotateTouch2Position = Input.touches[1].position;
+
+      }
+
+      isRotating = value;
+    }
+
+    protected override Vector2 GetScaledInputPan()
     {
       return new Vector2(
         initialPanInputPosition.x - Input.touches[0].position.x,
@@ -126,12 +49,14 @@ namespace BotScheduler.CameraControl
       ) / 100f;
     }
 
-    private float GetScaledInputRotation()
+    protected override float GetScaledInputRotation()
     {
       var initialVector = initialRotateTouch1Position - initialRotateTouch2Position;
       var currentVector = Input.touches[0].position - Input.touches[1].position;
 
       return Vector2.SignedAngle(initialVector, currentVector);
     }
+
+
   }
 }

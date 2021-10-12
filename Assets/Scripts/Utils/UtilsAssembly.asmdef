@@ -1,3 +1,15 @@
-﻿{
-	"name": "UtilsAssembly"
+{
+    "name": "UtilsAssembly",
+    "references": [
+        "GUID:247a163e3cc6efb42bd22b9023b87ff3"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

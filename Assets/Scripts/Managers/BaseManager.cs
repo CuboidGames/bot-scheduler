@@ -19,5 +19,10 @@ namespace BotScheduler.Managers
     {
       players = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
     }
+
+    Transform GetGUIObjectAtPosition<Transform>(Vector2 position)
+    {
+      return this.GetComponent<Transform>();
+    }
   }
 }

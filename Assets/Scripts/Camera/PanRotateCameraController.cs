@@ -2,24 +2,106 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace BotScheduler.CameraControl
 {
   [RequireComponent(typeof(Camera))]
-  public class PanRotateCameraController : MonoBehaviour
+  public abstract class PanRotateCameraController : MonoBehaviour
   {
     public Transform transformationPivot;
 
     public Bounds cameraBounds;
 
-    protected Camera _camera { get; private set; }
+    private Camera _camera;
 
-    private Vector3 initialPanPosition = Vector3.zero;
+    protected Vector3 initialPanPosition = Vector3.zero;
     private float initialRotation = 0;
+
+    [SerializeField]
+    private EventSystem eventSystem;
+
+
+    protected bool isPanning = false;
+    protected bool isRotating = false;
 
     private void Awake()
     {
       _camera = GetComponent<Camera>();
+    }
+
+    private void Start()
+    {
+      if (!eventSystem)
+      {
+        eventSystem = EventSystem.current;
+      }
+    }
+
+    private void Update()
+    {
+      HandlePan();
+      HandleRotation();
+    }
+
+    protected abstract bool IsPanningInput();
+    protected abstract bool IsRotatingInput();
+    protected abstract void SetPanning(bool value);
+    protected abstract void SetRotating(bool value);
+
+    protected abstract float GetScaledInputRotation();
+    protected abstract Vector2 GetScaledInputPan();
+
+    private void HandlePan()
+    {
+      if (!isPanning && IsPanningInput())
+      {
+        if (IsGUIInteraction())
+        {
+          return;
+        }
+
+        SetPanning(true);
+        OnPanStart();
+      }
+
+      if (isPanning && IsPanningInput())
+      {
+        OnPan(GetScaledInputPan());
+        return;
+      }
+
+      if (isPanning && !IsPanningInput())
+      {
+        SetPanning(false);
+        OnPanEnd();
+      }
+    }
+
+    private void HandleRotation()
+    {
+      if (!isRotating && IsRotatingInput())
+      {
+        if (IsGUIInteraction())
+        {
+          return;
+        }
+
+        SetRotating(true);
+        OnRotateStart();
+      }
+
+      if (isRotating && IsRotatingInput())
+      {
+        OnRotate(GetScaledInputRotation());
+        return;
+      }
+
+      if (isRotating && !IsRotatingInput())
+      {
+        SetRotating(false);
+        OnRotateEnd();
+      }
     }
 
     protected void OnPanStart()
@@ -54,6 +136,16 @@ namespace BotScheduler.CameraControl
       initialRotation = 0;
     }
 
+    protected bool IsGUIInteraction()
+    {
+      return eventSystem.IsPointerOverGameObject();
+    }
+
+    protected Vector3 ProjectVector(Vector3 direction, float offset)
+    {
+      return Vector3.ProjectOnPlane(direction, Vector3.up).normalized * offset;
+    }
+
     private Vector3 GetBoundedPosition(Vector3 position)
     {
       var boundedX = Mathf.Clamp(position.x, cameraBounds.center.x - cameraBounds.extents.x, cameraBounds.center.x + cameraBounds.extents.x);
@@ -62,10 +154,5 @@ namespace BotScheduler.CameraControl
       return new Vector3(boundedX, 0, boundedZ);
     }
 
-
-    protected Vector3 ProjectVector(Vector3 direction, float offset)
-    {
-      return Vector3.ProjectOnPlane(direction, Vector3.up).normalized * offset;
-    }
   }
 }

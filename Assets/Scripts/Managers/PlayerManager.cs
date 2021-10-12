@@ -16,6 +16,9 @@ namespace BotScheduler.Managers
     private List<Schedule> schedules = new List<Schedule>();
 
     [SerializeField]
+    private Camera _camera;
+
+    [SerializeField]
     private GameObject scheduleGUIPrefab;
 
     [SerializeField]
@@ -32,6 +35,10 @@ namespace BotScheduler.Managers
     {
       base.Start();
 
+      if (!_camera) {
+        _camera = Camera.main;
+      }
+
       InitPlayerSchedulers();
       InitSchedulersGUI();
       InitCommandsGUI();
@@ -42,7 +49,7 @@ namespace BotScheduler.Managers
 
       if (Input.GetMouseButtonDown(0))
       {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
 
         // TODO: Use a HashSet to improve lookup times down to O(1)
         if (Physics.Raycast(ray, out var hit) && players.Contains(hit.transform.gameObject))
