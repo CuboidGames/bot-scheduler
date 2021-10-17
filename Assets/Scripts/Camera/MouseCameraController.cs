@@ -48,7 +48,7 @@ namespace BotScheduler.CameraControl
 
     protected override float GetScaledInputRotation()
     {
-      return (Input.mousePosition.x - initialRotateInputPosition.x) / 20f;
+      return (Input.mousePosition.x - initialRotateInputPosition.x) / 10f;
     }
 
   }
