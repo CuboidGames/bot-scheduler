@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Test/Scenes/SchedulerTest.unity
+    path: Assets/Sandbox/Scenes/SchedulerTest.unity
     guid: cef1d5aaf17ec4746b72e6102bea0493
   m_configObjects: {}

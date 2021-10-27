@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: TestLevelConfiguration
   m_EditorClassIdentifier: 
   queueSize: 4
-  commands: 01000000010000000200000003000000
+  commands: 02000000030000000300000003000000
