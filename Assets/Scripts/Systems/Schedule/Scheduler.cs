@@ -26,12 +26,12 @@ namespace BotScheduler.Systems.Schedule
         {
             ISchedulable nextSchedulable = currentSchedule.GetNext();
 
-            if (nextSchedulable == null)
+            if (nextSchedulable != null)
             {
-                await Task.Yield();
+                await nextSchedulable.Run();
             }
 
-            await nextSchedulable.Run();
+            await Task.Yield();
         }
     }
 

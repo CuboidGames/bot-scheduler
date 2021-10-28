@@ -31,6 +31,7 @@ namespace BotScheduler.UI
 
         newDropArea.index = i;
         newDropArea.schedule = schedule;
+        newDropArea.player = player;
 
         newDropArea.transform.localPosition = new Vector3(
             targetX,
