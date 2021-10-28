@@ -1,53 +1,41 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using BotScheduler.Gameplay.Commands;
-using BotScheduler.Gameplay.Schedule;
+using BotScheduler.Systems.Commands;
+using BotScheduler.Systems.Schedule;
 using UnityEngine;
 
 namespace BotScheduler.UI
 {
-  public class CommandDrop : LeanDrop
-  {
-    private BaseCommand _command;
-    public BaseCommand command
+    public class CommandDrop : LeanDrop
     {
-      get
-      {
-        return _command;
-      }
+        public BaseCommand command { get; private set; }
+
+        public CommandType commandType { get; private set; }
+
+        public GameObject player;
+
+        private CommandIcon icon;
+
+        private new void Awake()
+        {
+            base.Awake();
+
+            icon = GetComponentInChildren<CommandIcon>();
+        }
+
+        private new void Start()
+        {
+            base.Start();
+
+            icon.SetCommandType(commandType);
+
+            command = CommandFactory.GetCommand(commandType, player);
+        }
+
+        public void SetCommandType(CommandType commandType)
+        {
+            this.commandType = commandType;
+        }
     }
-
-    private CommandType _commandType = CommandType.Noop;
-
-    public CommandType commandType {
-      get {
-        return _commandType;
-      }
-      set {
-        _commandType = value;
-      }
-    }
-
-    public GameObject player;
-
-    private CommandDraggableIcon icon;
-
-    private new void Awake()
-    {
-      base.Awake();
-
-      icon = GetComponentInChildren<CommandDraggableIcon>();
-    }
-
-    private new void Start()
-    {
-      base.Start();
-
-      icon.SetCommandType(commandType);
-      _command = CommandFactory.GetCommand(commandType);
-    }
-  }
-
-
 }

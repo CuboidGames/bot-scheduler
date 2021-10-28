@@ -1,0 +1,16 @@
+{
+    "name": "CommandsAssembly",
+    "rootNamespace": "",
+    "references": [
+        "GUID:b1fa8a683a06b98419163d5c7244bd1b"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

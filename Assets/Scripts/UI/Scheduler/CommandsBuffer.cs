@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using BotScheduler.Gameplay.Commands;
+using BotScheduler.Systems.Commands;
 using UnityEngine;
 
 namespace BotScheduler.UI
 {
-  public class CommandsContainerGUI : MonoBehaviour
+  public class CommandsBuffer : MonoBehaviour
   {
     [SerializeField]
     private CommandDrop commandDropPrefab;
@@ -31,7 +31,7 @@ namespace BotScheduler.UI
             0
         );
 
-        newCommandDraggable.commandType = commands[i];
+        newCommandDraggable.SetCommandType(commands[i]);
       }
     }
   }

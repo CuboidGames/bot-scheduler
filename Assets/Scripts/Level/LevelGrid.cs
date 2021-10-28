@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GridSystem;
+using BotScheduler.Systems.GridSystem;
 using UnityEditor;
 using System.Threading.Tasks;
 
@@ -17,7 +17,7 @@ namespace Level
 
         [SerializeField] private GameObject tilePrefab;
 
-        private GridSystem.Grid<GameObject> grid;
+        private BotScheduler.Systems.GridSystem.Grid<GameObject> grid;
 
         void Start()
         {
@@ -40,7 +40,7 @@ namespace Level
         [ContextMenu("Generate Grid")]
         void GenerateGrid()
         {
-            grid = new GridSystem.Grid<GameObject>(
+            grid = new BotScheduler.Systems.GridSystem.Grid<GameObject>(
                 width,
                 height,
                 cellSize,
@@ -79,17 +79,15 @@ namespace Level
             ReplaceTile(update.oldValue, update.newValue, update.x, update.y);
         }
 
-        async void ReplaceTile(GameObject oldTile, GameObject newTile, int x, int y)
+        void ReplaceTile(GameObject oldTile, GameObject newTile, int x, int y)
         {
-            if (oldTile != null) {
+            if (oldTile != null)
+            {
                 oldTile.transform.localPosition = grid.GetWorldPosition(x, y);
                 Destroy(oldTile);
-
-                await Task.Delay(100);
             }
 
             newTile.transform.localPosition = grid.GetWorldPosition(x, y);
-
         }
 
         void Destroy()

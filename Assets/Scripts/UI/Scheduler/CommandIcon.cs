@@ -1,8 +1,8 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using BotScheduler.Gameplay.Commands;
-using BotScheduler.Gameplay.Schedule;
+using BotScheduler.Systems.Commands;
+using BotScheduler.Systems.Schedule;
 using UnityEngine;
 
 namespace BotScheduler.UI
@@ -16,7 +16,7 @@ namespace BotScheduler.UI
     public float rotationCorrection = 0;
   }
 
-  public class CommandDraggableIcon : MonoBehaviour
+  public class CommandIcon : MonoBehaviour
   {
     private UnityEngine.UI.Image image;
 

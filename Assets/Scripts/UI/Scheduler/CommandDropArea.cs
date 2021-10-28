@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using BotScheduler.Gameplay.Commands;
-using BotScheduler.Gameplay.Schedule;
+using BotScheduler.Systems.Commands;
+using BotScheduler.Systems.Schedule;
 using UnityEngine;
 
 namespace BotScheduler.UI

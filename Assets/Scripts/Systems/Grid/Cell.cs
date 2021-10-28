@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace GridSystem
+namespace BotScheduler.Systems.GridSystem
 {
     public class Cell<T>
     {

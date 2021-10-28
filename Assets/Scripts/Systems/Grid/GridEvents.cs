@@ -1,4 +1,4 @@
-namespace GridSystem
+namespace BotScheduler.Systems.GridSystem
 {
     public class OnGridValueChangedEventArgs<U>
     {

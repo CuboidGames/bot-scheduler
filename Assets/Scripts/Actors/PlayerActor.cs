@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using BotScheduler.Gameplay.Level;
-using BotScheduler.Gameplay.Schedule;
+using BotScheduler.Systems.Schedule;
 using UnityEngine;
 
 namespace BotScheduler.Actors {

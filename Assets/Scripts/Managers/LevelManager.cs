@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using BotScheduler.Gameplay.Schedule;
+using BotScheduler.Systems.Schedule;
 using BotScheduler.UI;
 using UnityEngine;
 

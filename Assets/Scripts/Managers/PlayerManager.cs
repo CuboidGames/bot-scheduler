@@ -1,15 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using BotScheduler.Gameplay.Schedule;
+using BotScheduler.Systems.Schedule;
 using BotScheduler.UI;
 using UnityEditor;
 using UnityEngine;
 
 namespace BotScheduler.Managers
 {
-
-
   public class PlayerManager : BaseManager
   {
 
@@ -28,7 +26,7 @@ namespace BotScheduler.Managers
     private Canvas canvasGUI;
 
     private ScheduleCreatorGUI activeScheduler;
-    private CommandsContainerGUI commandsGUI;
+    private CommandsBuffer commandsGUI;
     private List<ScheduleCreatorGUI> schedulerGUIs = new List<ScheduleCreatorGUI>();
 
     private new void Start()
@@ -82,7 +80,7 @@ namespace BotScheduler.Managers
 
       // Init scheduler GUI
       var commands = Instantiate(commandsGUIPrefab, canvasGUI.transform);
-      var commandsGUI = commands.GetComponent<CommandsContainerGUI>();
+      var commandsGUI = commands.GetComponent<CommandsBuffer>();
 
       commandsGUI.CreateCommandDraggables(levelConfiguration.commands);
     }
