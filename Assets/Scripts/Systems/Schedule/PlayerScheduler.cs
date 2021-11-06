@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
 
@@ -19,6 +20,20 @@ namespace BotScheduler.Systems.Schedule
         public void SetSchedule(Schedule newSchedule)
         {
             schedule = newSchedule;
+        }
+
+        public void PrepareSchedule()
+        {
+            scheduler.PrepareSchedule(schedule);
+        }
+
+        public bool HasNextSchedulable() {
+            return scheduler.HasNextSchedulable();
+        }
+
+        public async Task RunNext()
+        {
+            await scheduler.RunNext();
         }
 
         public async void RunSchedule()

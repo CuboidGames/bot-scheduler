@@ -25,7 +25,7 @@ namespace BotScheduler.Systems.Commands
 
             await RunInterpolated(1, (float delta) =>
             {
-                target.transform.rotation = Quaternion.Lerp(initialRotation, targetRotation, delta);
+                rb.MoveRotation(Quaternion.Lerp(initialRotation, targetRotation, delta));
             });
         }
     }

@@ -10,9 +10,15 @@ namespace BotScheduler.Systems.Commands
     {
         protected GameObject target;
 
+        protected Rigidbody rb;
+
         public void SetTarget(GameObject target)
         {
             this.target = target;
+
+            if (this.target) {
+                this.target.TryGetComponent<Rigidbody>(out rb);
+            }
         }
     }
 }

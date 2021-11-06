@@ -13,7 +13,7 @@ namespace BotScheduler.Managers
     [HideInInspector]
     public LevelConfiguration levelConfiguration;
 
-    protected List<GameObject> players;
+    public List<GameObject> players { get; private set; }
 
     protected void Start()
     {

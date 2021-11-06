@@ -94,13 +94,13 @@ MonoBehaviour:
     rotationCorrection: 0
   - commandType: 1
     sprite: {fileID: 21300000, guid: 95c49cf2de1afb94aaca14fc39a6575b, type: 3}
-    rotationCorrection: -90
+    rotationCorrection: 0
   - commandType: 3
-    sprite: {fileID: 21300000, guid: 95c49cf2de1afb94aaca14fc39a6575b, type: 3}
+    sprite: {fileID: 21300000, guid: 77c85ba225b9c11419bd335565a46bdf, type: 3}
     rotationCorrection: 0
   - commandType: 2
     sprite: {fileID: 21300000, guid: 95c49cf2de1afb94aaca14fc39a6575b, type: 3}
-    rotationCorrection: 90
+    rotationCorrection: 180
   - commandType: 4
     sprite: {fileID: 21300000, guid: 34c60bc01d9a00b4aaf9a0abecdf0648, type: 3}
     rotationCorrection: 0

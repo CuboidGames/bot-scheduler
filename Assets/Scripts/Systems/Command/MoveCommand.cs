@@ -25,7 +25,7 @@ namespace BotScheduler.Systems.Commands
 
             await RunInterpolated(1, (float delta) =>
             {
-                target.transform.position = Vector3.Lerp(initialPosition, targetPosition, delta);
+                rb.MovePosition(Vector3.Lerp(initialPosition, targetPosition, delta));
             });
         }
     }

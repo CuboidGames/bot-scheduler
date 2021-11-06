@@ -39,8 +39,9 @@ namespace BotScheduler.UI
 
             if (commandType == CommandType.MoveForward)
             {
-                var gameObjectCommand = new MoveCommand(Vector3.forward, 0.25f);
+                var gameObjectCommand = new GridMoveCommand(0, 1);
                 gameObjectCommand.SetTarget(player);
+                gameObjectCommand.SetGrid(grid);
 
                 command = gameObjectCommand;
             }
@@ -60,7 +61,7 @@ namespace BotScheduler.UI
             }
             else if (commandType == CommandType.GridMove)
             {
-                var gameObjectCommand = new GridMoveCommand(Vector3.up, Mathf.PI / 2);
+                var gameObjectCommand = new GridMoveCommand(1, 1);
                 gameObjectCommand.SetTarget(player);
                 gameObjectCommand.SetGrid(grid);
 

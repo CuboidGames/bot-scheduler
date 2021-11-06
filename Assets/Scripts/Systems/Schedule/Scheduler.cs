@@ -10,13 +10,20 @@ namespace BotScheduler.Systems.Schedule
     {
         private Schedule currentSchedule;
 
+        public void PrepareSchedule(Schedule schedule) {
+            currentSchedule = schedule;
+            currentSchedule.Restart();
+        }
+
+        public bool HasNextSchedulable() {
+            return currentSchedule.HasNextSchedulable();
+        }
+
         public async Task RunFullSchedule(Schedule schedule)
         {
-            currentSchedule = schedule;
+            PrepareSchedule(schedule);
 
-            schedule.Restart();
-
-            while (!schedule.IsLastSchedulable())
+            while (!HasNextSchedulable())
             {
                 await RunNext();
             }

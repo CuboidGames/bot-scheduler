@@ -9,13 +9,14 @@ namespace BotScheduler.Systems.Commands
     public class GridMoveCommand : BaseGameObjectCommand, ISchedulable
     {
         protected GridSystem.Grid<GameObject> grid;
-        protected Vector3 direction;
-        protected float distance;
 
-        public GridMoveCommand(Vector3 direction, float distance) : base()
+        int x = 0;
+        int y = 0;
+
+        public GridMoveCommand(int x, int y) : base()
         {
-            this.direction = direction;
-            this.distance = distance;
+            this.x = x;
+            this.y = y;
         }
 
         public void SetGrid(GridSystem.Grid<GameObject> grid)
@@ -28,11 +29,11 @@ namespace BotScheduler.Systems.Commands
             var initialPosition = target.transform.position;
             var currentCoordinates = grid.GetGridPosition(initialPosition);
             var targetCoordinates = grid.GetCell(currentCoordinates.x, currentCoordinates.y);
-            var targetPosition = grid.GetWorldPosition(targetCoordinates.x, targetCoordinates.y + 1);
+            var targetPosition = grid.GetWorldPosition(targetCoordinates.x + x, targetCoordinates.y + y);
 
             await RunInterpolated(1, (float delta) =>
             {
-                target.transform.position = Vector3.Lerp(initialPosition, targetPosition, delta);
+                rb.MovePosition(Vector3.Lerp(initialPosition, targetPosition, delta));
             });
         }
     }

@@ -6,18 +6,18 @@ using UnityEngine;
 
 
 namespace BotScheduler.Actors {
-    [RequireComponent(typeof(PlayerManager))]
+    [RequireComponent(typeof(GUIManager))]
     [RequireComponent(typeof(LevelManager))]
     public class ManagersActor : MonoBehaviour {
         [SerializeField]
         private LevelConfiguration levelConfiguration;
 
-        private PlayerManager playerManager;
+        private GUIManager playerManager;
         private LevelManager levelManager;
 
         private void Awake()
         {
-            playerManager = GetComponent<PlayerManager>();
+            playerManager = GetComponent<GUIManager>();
             levelManager = GetComponent<LevelManager>();
         }
 
