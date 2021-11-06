@@ -13,6 +13,8 @@ namespace BotScheduler.UI
     [SerializeField]
     private float draggableWidth = 120;
 
+    public BotScheduler.Systems.GridSystem.Grid<GameObject> grid;
+
     public void CreateCommandDraggables(List<CommandType> commands)
     {
       for (int i = 0; i < commands.Count; i++)
@@ -31,6 +33,7 @@ namespace BotScheduler.UI
             0
         );
 
+        newCommandDraggable.grid = grid;
         newCommandDraggable.SetCommandType(commands[i]);
       }
     }

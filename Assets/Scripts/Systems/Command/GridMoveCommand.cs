@@ -27,8 +27,8 @@ namespace BotScheduler.Systems.Commands
         {
             var initialPosition = target.transform.position;
             var currentCoordinates = grid.GetGridPosition(initialPosition);
-            var targetCoordinates = grid.GetCell(currentCoordinates.x, currentCoordinates.y + 1);
-            var targetPosition = grid.GetWorldPosition(targetCoordinates.x, targetCoordinates.y);
+            var targetCoordinates = grid.GetCell(currentCoordinates.x, currentCoordinates.y);
+            var targetPosition = grid.GetWorldPosition(targetCoordinates.x, targetCoordinates.y + 1);
 
             await RunInterpolated(1, (float delta) =>
             {

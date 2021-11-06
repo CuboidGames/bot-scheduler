@@ -215,7 +215,6 @@ GameObject:
   - component: {fileID: 67026690}
   - component: {fileID: 67026689}
   - component: {fileID: 67026688}
-  - component: {fileID: 67026691}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -276,25 +275,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelConfiguration: {fileID: 0}
-  _camera: {fileID: 0}
+  _camera: {fileID: 528477916}
   scheduleGUIPrefab: {fileID: 9126579234505835406, guid: e5e60177765b351458f9f93c68047c71,
     type: 3}
   commandsGUIPrefab: {fileID: 8723590939418955472, guid: e62b5e8984b083142bae73072ddf3696,
     type: 3}
   canvasGUI: {fileID: 1708243417}
---- !u!114 &67026691
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 67026686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 369180f7d5603404791e07fc83538f48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelConfiguration: {fileID: 0}
+  levelGrid: {fileID: 1541678677}
 --- !u!1 &78129777
 GameObject:
   m_ObjectHideFlags: 0
@@ -2596,6 +2583,12 @@ MonoBehaviour:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 10, y: 10, z: 10}
   eventSystem: {fileID: 0}
+--- !u!20 &528477916 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 7167394379788003908, guid: ca27f9d160b984d4d9b765bcfde4cff9,
+    type: 3}
+  m_PrefabInstance: {fileID: 7167394379915839826}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &532331285
 GameObject:
   m_ObjectHideFlags: 0

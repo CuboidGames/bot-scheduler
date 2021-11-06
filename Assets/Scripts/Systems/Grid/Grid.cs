@@ -37,11 +37,12 @@ namespace BotScheduler.Systems.GridSystem
 
         public Vector2Int GetGridPosition(Vector3 worldPosition)
         {
-            var origin = worldPosition - position;
+            var centerShift = new Vector3(((float)width - 1) / 2, 0, ((float)height - 1) / 2) * cellSize;
+            var origin = worldPosition - position + centerShift;
 
             return new Vector2Int(
                 Mathf.FloorToInt(origin.x / cellSize),
-                Mathf.FloorToInt(origin.y / cellSize)
+                Mathf.FloorToInt(origin.z / cellSize)
             );
         }
 

@@ -17,9 +17,9 @@ namespace Level
 
         [SerializeField] private GameObject tilePrefab;
 
-        private BotScheduler.Systems.GridSystem.Grid<GameObject> grid;
+        public BotScheduler.Systems.GridSystem.Grid<GameObject> grid { get; private set; }
 
-        void Start()
+        void Awake()
         {
             GenerateGrid();
         }

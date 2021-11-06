@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using BotScheduler.Systems.Schedule;
 using BotScheduler.UI;
+using Level;
 using UnityEditor;
 using UnityEngine;
 
@@ -24,6 +25,9 @@ namespace BotScheduler.Managers
 
     [SerializeField]
     private Canvas canvasGUI;
+
+    [SerializeField]
+    private LevelGrid levelGrid;
 
     private PlayerScheduleGUI activeScheduler;
     private CommandsBufferGUI commandsGUI;
@@ -82,6 +86,7 @@ namespace BotScheduler.Managers
       var commands = Instantiate(commandsGUIPrefab, canvasGUI.transform);
       var commandsGUI = commands.GetComponent<CommandsBufferGUI>();
 
+      commandsGUI.grid = levelGrid.grid;
       commandsGUI.CreateCommandDraggables(levelConfiguration.commands);
     }
 
