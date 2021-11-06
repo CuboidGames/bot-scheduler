@@ -1,15 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using BotScheduler.Gameplay.Commands;
 using BotScheduler.Systems.Commands;
 using UnityEngine;
 
 namespace BotScheduler.UI
 {
-  public class CommandsBuffer : MonoBehaviour
+  public class CommandsBufferGUI : MonoBehaviour
   {
     [SerializeField]
-    private CommandDrop commandDropPrefab;
+    private CommandDraggable commandDropPrefab;
 
     [SerializeField]
     private float draggableWidth = 120;
@@ -21,14 +20,14 @@ namespace BotScheduler.UI
         float offset = (i - (commands.Count / 2.0f) + 0.5f);
         float targetX = offset * draggableWidth;
 
-        var newCommandDraggable = Instantiate<CommandDrop>(
+        var newCommandDraggable = Instantiate<CommandDraggable>(
             commandDropPrefab,
             transform,
             false);
 
         newCommandDraggable.transform.localPosition = new Vector3(
             targetX,
-            0,
+            100,
             0
         );
 

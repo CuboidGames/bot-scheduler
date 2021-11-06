@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace BotScheduler.UI
 {
-  public class ScheduleCreatorGUI : MonoBehaviour
+  public class PlayerScheduleGUI : MonoBehaviour
   {
     [SerializeField]
     private CommandDropArea dropAreaPrefab;

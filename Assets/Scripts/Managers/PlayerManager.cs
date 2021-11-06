@@ -25,9 +25,9 @@ namespace BotScheduler.Managers
     [SerializeField]
     private Canvas canvasGUI;
 
-    private ScheduleCreatorGUI activeScheduler;
-    private CommandsBuffer commandsGUI;
-    private List<ScheduleCreatorGUI> schedulerGUIs = new List<ScheduleCreatorGUI>();
+    private PlayerScheduleGUI activeScheduler;
+    private CommandsBufferGUI commandsGUI;
+    private List<PlayerScheduleGUI> schedulerGUIs = new List<PlayerScheduleGUI>();
 
     private new void Start()
     {
@@ -80,7 +80,7 @@ namespace BotScheduler.Managers
 
       // Init scheduler GUI
       var commands = Instantiate(commandsGUIPrefab, canvasGUI.transform);
-      var commandsGUI = commands.GetComponent<CommandsBuffer>();
+      var commandsGUI = commands.GetComponent<CommandsBufferGUI>();
 
       commandsGUI.CreateCommandDraggables(levelConfiguration.commands);
     }
@@ -100,7 +100,7 @@ namespace BotScheduler.Managers
 
         // Init scheduler GUI
         var scheduler = Instantiate(scheduleGUIPrefab, canvasGUI.transform);
-        var playerScheduleGUI = scheduler.GetComponent<ScheduleCreatorGUI>();
+        var playerScheduleGUI = scheduler.GetComponent<PlayerScheduleGUI>();
 
         playerScheduleGUI.player = player;
         playerScheduleGUI.CreateScheduleSlots(schedule);

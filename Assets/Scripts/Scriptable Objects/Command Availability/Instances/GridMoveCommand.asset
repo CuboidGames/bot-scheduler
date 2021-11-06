@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b05a3ae4479317443aeaff56c3dab7bc, type: 3}
-  m_Name: TestLevelConfiguration
+  m_Script: {fileID: 11500000, guid: 5adbe7d64198a5b4dab8977f402a8b8b, type: 3}
+  m_Name: GridMoveCommand
   m_EditorClassIdentifier: 
-  queueSize: 4
-  commands: 0200000003000000030000000300000004000000
+  commandType: 4
+  count: 1

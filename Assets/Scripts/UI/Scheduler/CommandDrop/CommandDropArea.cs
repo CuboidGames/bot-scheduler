@@ -20,9 +20,9 @@ namespace BotScheduler.UI
       base.OnLeanDrop(droppable);
 
       // TODO: Find a way to resolve this through the method signature
-      if (droppable is CommandDrop)
+      if (droppable is CommandDraggable)
       {
-        var command = ((CommandDrop) droppable).command;
+        var command = ((CommandDraggable) droppable).command;
 
         if (command is BaseGameObjectCommand) {
           var gameObjectCommand = (BaseGameObjectCommand) command;

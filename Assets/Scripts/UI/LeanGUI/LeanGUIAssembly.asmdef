@@ -1,9 +1,9 @@
 {
-    "name": "CommandsAssembly",
+    "name": "LeanGUIAssembly",
     "rootNamespace": "",
     "references": [
-        "GUID:b1fa8a683a06b98419163d5c7244bd1b",
-        "GUID:09d8a69b892a9c148b0e25f5aaeba504"
+        "GUID:0cd1f3be502188a4f8a646f78bce7efa",
+        "GUID:247a163e3cc6efb42bd22b9023b87ff3"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

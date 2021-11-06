@@ -4,7 +4,6 @@ using Lean.Gui;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using BotScheduler.Utils;
-using BotScheduler.Managers;
 
 namespace BotScheduler.UI
 {

@@ -1,4 +1,4 @@
-﻿using BotScheduler.Gameplay.Commands;
+﻿using BotScheduler.Systems.Commands;
 using UnityEngine;
 
 [CreateAssetMenu(menuName="ScriptableObjects/Available Level Command", order = 1)]

@@ -101,6 +101,9 @@ MonoBehaviour:
   - commandType: 2
     sprite: {fileID: 21300000, guid: 95c49cf2de1afb94aaca14fc39a6575b, type: 3}
     rotationCorrection: 90
+  - commandType: 4
+    sprite: {fileID: 21300000, guid: 34c60bc01d9a00b4aaf9a0abecdf0648, type: 3}
+    rotationCorrection: 0
 --- !u!1 &2281829758282707725
 GameObject:
   m_ObjectHideFlags: 0
